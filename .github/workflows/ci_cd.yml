@@ -22,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/fastapiserver
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -30,7 +30,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/fastapiserver:latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
