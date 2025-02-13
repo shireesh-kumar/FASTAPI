@@ -39,7 +39,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: copy file via ssh key
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST_NAME }}
           username: ${{ secrets.USERNAME }}
@@ -48,7 +48,7 @@ jobs:
           target: .
           timeout: 120s
       - name: run docker-compose
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST_NAME }}
           username: ${{ secrets.USERNAME }}
