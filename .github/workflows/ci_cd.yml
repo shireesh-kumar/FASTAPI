@@ -3,6 +3,7 @@ name: Build, Push, Deploy.
 on:
   push:
     branches: [ main ]
+
 jobs:
   build_and_push:
     name: Push docker image to Docker Hub
@@ -10,25 +11,26 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
+
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          ecr: auto
-          logout: true
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
-      - name: Extract metadata (labels, tags, etc.) for Docker
+
+      - name: Extract metadata for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: shireesh1998/myfastapiserver:latest
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: shireesh1998/myfastapiserver:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ github.repository }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
@@ -38,7 +40,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: copy file via ssh key
+
+      - name: Add SSH known hosts
+        run: ssh-keyscan -H ${{ secrets.HOST_NAME }} >> ~/.ssh/known_hosts
+
+      - name: Copy files via SSH
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST_NAME }}
@@ -47,7 +53,8 @@ jobs:
           source: "docker-compose.yml, nginx/nginx.conf"
           target: .
           timeout: 120s
-      - name: run docker-compose
+
+      - name: Run docker-compose
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.HOST_NAME }}
@@ -55,7 +62,6 @@ jobs:
           key: ${{ secrets.KEY_VALUE }}
           script: |
             docker compose down
-            docker rmi -f $(docker images -q)
+            docker image prune -af
             docker compose pull
-            docker compose up -d
-
+            docker compose up -d --remove-orphans
