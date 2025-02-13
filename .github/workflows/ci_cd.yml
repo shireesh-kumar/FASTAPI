@@ -41,9 +41,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Add SSH known hosts
-        run: ssh-keyscan -H ${{ secrets.HOST_NAME }} >> ~/.ssh/known_hosts
-
       - name: Copy files via SSH
         uses: appleboy/scp-action@v0.1.4
         with:
