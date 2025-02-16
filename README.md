@@ -1,6 +1,6 @@
 # FastAPI Todo List Application
 
-This project is a simple FastAPI application designed to store a todo list. While the functionality of the application is basic, the main goal of this project is to build a CI/CD pipeline and deploy the application to an AWS EC2 instance. 
+This is a FastAPI application that stores a to-do list. The application is deployed on an AWS EC2 instance using a CI/CD pipeline, which automates the process of building, pushing the Docker image to Docker Hub, and deploying it.
 
 ## Features
 - **FastAPI**: A simple and fast web framework for building APIs.
