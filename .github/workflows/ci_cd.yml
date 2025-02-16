@@ -52,11 +52,11 @@ jobs:
           chmod 600 key.pem
       - name: Pull Docker image
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.118.8 'sudo docker pull shireesh1998/fastapiserver:latest'
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.110.67 'sudo docker pull shireesh1998/fastapiserver:latest'
       - name: Stop running container
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.118.8 'sudo docker stop fastapiserver || true'
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.118.8 'sudo docker rm fastapiserver || true'
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.110.67 'sudo docker stop fastapiserver || true'
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.110.67 'sudo docker rm fastapiserver || true'
       - name: Run new container
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.118.8 'sudo docker run -d --name fastapiserver -p 80:8000 shireesh1998/fastapiserver:latest'
+          ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@3.133.110.67 'sudo docker run -d --name fastapiserver -p 80:8000 shireesh1998/fastapiserver:latest'

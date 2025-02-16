@@ -41,24 +41,25 @@ If you prefer not to use Docker, you can run the FastAPI app directly using Uvic
     ```
 
 Note:
-- In both Dockerized and local Uvicorn setups, the application will be available at http://localhost:8000 (HTTP, not HTTPS).
+- In both Dockerized and local Uvicorn setups, the application will be available at http://localhost:8000/docs (HTTP, not HTTPS), where /docs opens the Swagger UI.
 - HTTPS configuration requires additional setup and is not included here (to be implemented 😊).
 
+![alt text](image.png)
 
 ## CI/CD Pipeline
 Every time changes are pushed (except for the README.md file), the CI/CD pipeline is triggered. The pipeline performs the following tasks:
 
 - Builds the Docker image using the Dockerfile in the repository.
 - Pushes the Docker image to Docker Hub with the latest tag.
-- Deployment on AWS EC2 : the image is pulled from Docker Hub to an AWS EC2 instance and run as a Docker container. The application will be available via HTTP at: http://public-ipv4-ec2:80
+- Deployment on AWS EC2 : the image is pulled from Docker Hub to an AWS EC2 instance and run as a Docker container. The application will be available via HTTP at: http://public-ipv4-ec2:80/docs, where /docs opens the Swagger UI
 
 
 **Note for EC2 Deployment**: 
 
 For those who want to try EC2 deployment, make the following changes in ci-cd.yml file at every occurances:
 
-- ubuntu@3.133.122.121 'sudo docker pull shireesh1998/fastapiserver:latest'
-  In the above command, replace 3.133.118.8 with your EC2 instance's public IPv4 address. Also, shireesh1998 is the Docker Hub username and fastapiserver is the Docker Hub repository name.
+- ubuntu@3.133.110.67 'sudo docker pull shireesh1998/fastapiserver:latest'
+  In the above command, replace 3.133.110.67 with your EC2 instance's public IPv4 address. Also, shireesh1998 is the Docker Hub username and fastapiserver is the Docker Hub repository name.
   You can refer to this medium article for more information: Continuous Deployment with GitHub Actions, DockerHub, and AWS EC2 - A Hands-On Tutorial.
 
 ## Conclusion
