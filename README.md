@@ -17,7 +17,7 @@ This project is a simple FastAPI application designed to store a todo list. Whil
 
 ### Running the Application
 
-### Running via Docker Compose
+### 1. Running via Docker Compose
 
 To run the application with Docker, use the following command to build the image and start the container for the first time:
 
@@ -26,7 +26,7 @@ docker-compose up --build
 ```
 For later use, you can avoid the --build tag :iykyk
 
-### Running via Uvicorn
+### 2. Running via Uvicorn
 
 If you prefer not to use Docker, you can run the FastAPI app directly using Uvicorn.
 
@@ -45,7 +45,7 @@ Note:
 - HTTPS configuration requires additional setup and is not included here (to be implemented 😊).
 
 
-### CI/CD Pipeline
+## CI/CD Pipeline
 Every time changes are pushed (except for the README.md file), the CI/CD pipeline is triggered. The pipeline performs the following tasks:
 
 - Builds the Docker image using the Dockerfile in the repository.
@@ -58,11 +58,11 @@ Every time changes are pushed (except for the README.md file), the CI/CD pipelin
 For those who want to try EC2 deployment, make the following changes in ci-cd.yml file at every occurances:
 
 ubuntu@3.133.122.121 'sudo docker pull shireesh1998/fastapiserver:latest'
-In the above command, replace 3.133.122.121 with your EC2 instance's public IPv4 address. Also, shireesh1998 is the Docker Hub username and fastapiserver is the Docker Hub repository name.
+In the above command, replace 3.133.118.8 with your EC2 instance's public IPv4 address. Also, shireesh1998 is the Docker Hub username and fastapiserver is the Docker Hub repository name.
 
 You can refer to this medium article for more information: Continuous Deployment with GitHub Actions, DockerHub, and AWS EC2 - A Hands-On Tutorial.
 
-### Conclusion
+## Conclusion
 This project demonstrates the deployment of a simple FastAPI application with an integrated CI/CD pipeline using Docker and AWS EC2
 
 
